@@ -21,7 +21,7 @@ emotions={
 }
 
 #Emotions to observe
-observed_emotions=['neutral', 'calm', 'happy', 'sad', 'angry', 'fearful', 'disgust', 'surprised']
+observed_emotions = ['neutral', 'calm', 'happy', 'sad', 'angry', 'fearful', 'disgust', 'surprised']
 
 #Extract features (mfcc, chroma, mel) from a sound file
 def extract_feature(file_name, mfcc, chroma, mel):
@@ -55,7 +55,20 @@ def load_data(test_size=0.2):
     return train_test_split(np.array(features_list), np.asarray(emotions_list), test_size=test_size, random_state=9)
 
 #Split the dataset into training data and test data
-x_train,x_test,y_train,y_test=load_data(test_size=0.25)
+x_train,x_test,y_train,y_test = load_data(test_size=0.25)
 print('Shape of the training data :', x_train.shape[0])
-print('Shape of the training data :', x_test.shape[0])
+print('Shape of the test data :', x_test.shape[0])
 print('Number of features extracted :,', x_train.shape[1])
+
+#Initialize the MLPClassifier model
+model = MLPClassifier(alpha=0.01, batch_size=256, epsilon=1e-08, hidden_layer_sizes=(300,), learning_rate='adaptive', max_iter=500)
+
+#Train the model
+model.fit(x_train, y_train)
+
+#Predict emotions of test set
+y_pred = model.predict(x_test)
+
+#Evaluate model accuracy
+accuracy = accuracy_score(y_true=y_test, y_pred=y_pred)
+print("Accuracy: {:.2f}%".format(accuracy*100))
