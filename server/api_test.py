@@ -1,5 +1,7 @@
-import requests
+from flask import Flask
+from flask_restful import Resource, Api, reqparse
+import pandas as pd
+import ast
 
-res = requests.get('''audio data''')
-with open('''specify folder possibly''') as fp:
-    fp.write(res.text)
+app=Flask(__name__)
+api = Api(app)
