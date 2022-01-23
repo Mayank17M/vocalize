@@ -12,7 +12,10 @@
   "dependencies": {
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
+    "@web3-react/core": "^6.1.9",
+    "@web3-react/injected-connector": "^6.0.7",
     "expo": "~44.0.0",
+    "expo-av": "~10.2.0",
     "expo-status-bar": "~1.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -20,7 +23,7 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-web": "0.17.1",
-    "expo-av": "~10.2.0"
+    "web3": "^1.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
