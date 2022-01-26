@@ -62,8 +62,8 @@ print('Shape of the test data :', x_test.shape[0])
 print('Number of features extracted :,', x_train.shape[1])
 
 #Initialize the MLPClassifier model
-hidden_layer_sizes = [300 for i in range(4)]
-model = MLPClassifier(alpha=0.01, batch_size=8, epsilon=1e-08, hidden_layer_sizes=hidden_layer_sizes, learning_rate='adaptive', max_iter=500)
+hidden_layer_sizes = [200 for i in range(4)]
+model = MLPClassifier(alpha=0.09, batch_size=32, epsilon=1e-08, hidden_layer_sizes=hidden_layer_sizes, learning_rate='adaptive', learning_rate_init=0.0001, max_iter=5000)
 
 #Train the model
 model.fit(x_train, y_train)
