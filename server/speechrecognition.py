@@ -115,3 +115,27 @@ class EmotionClassifier:
         myaudio = AudioSegment.from_file(file_name, "wav")
         chunk_length_ms = 1000 # pydub calculates in millisec
         return make_chunks(myaudio, chunk_length_ms) #Make chunks of one sec
+
+
+    def emotion_statistics(self, file_name):
+        chunks = self.splice_audio(file_name)
+        emotions_by_time = []
+        for i, chunk in enumerate(chunks):
+            chunk_name = "chunk.wav"
+            chunk.export(chunk_name, format="wav")
+            chunk_path = os.path.join(DIRECTORY, chunk_name)
+            feature = self.extract_feature(chunk_path, mfcc=True, chroma=True, mel=True)
+            predicted_emotion = self.model.predict([feature])
+            emotions_by_time.append(predicted_emotion)
+        return emotions_by_time
+
+def main():
+    classif = EmotionClassifier()
+    classif.train(test_size=0.25)
+    file_name = os.path.basename(AUDIO_FILEPATH)
+    for file in glob.glob(AUDIO_FILEPATH):
+        emot_stat = classif.emotion_statistics(file)
+        print(emot_stat)
+
+if __name__ == '__main__':
+    main()
