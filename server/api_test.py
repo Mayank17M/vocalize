@@ -1,3 +1,4 @@
+from ISStreamer.Streamer import Streamer
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
 import pandas as pd
@@ -7,7 +8,7 @@ app=Flask(__name__)
 api = Api(app)
 
 #/users
-users_path='''wherever user data is stored (For example, "./data/users.csv")'''
+users_path= '''wherever user data is stored'''
 #/audio
 
 class Users(Resource):
@@ -60,3 +61,17 @@ api.add_resource(Audio,'/audio')
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+ACCESS_KEY = "ist_Dhztjg5pZmQeJuFgID3dinHYM7PqX2v7"
+BUCKET_KEY = "RVCXRFDKET8E"
+BUCKET_NAME = "Emotion recognition"
+
+# create a Streamer instance
+streamer = Streamer(bucket_name=BUCKET_NAME, bucket_key=BUCKET_KEY, access_key=ACCESS_KEY)
+
+# send some data
+streamer.log("myNumber", 25)
+
+# flush and close the stream
+streamer.flush()

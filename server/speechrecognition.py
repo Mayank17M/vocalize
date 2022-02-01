@@ -5,7 +5,10 @@ import librosa
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
+from pydub import AudioSegment
+from pydub.utils import make_chunks
 
+DIRECTORY = 'D:/GitHub/vocalize'
 AUDIO_FILEPATH ='D:/study/ravdess/Actor_*/*.wav'
 
 #Emotions from the RAVDESS dataset
@@ -25,7 +28,7 @@ default_observed_emotions = ['neutral', 'happy', 'sad', 'angry', 'fearful', 'dis
 
 class EmotionClassifier:
     def __init__(self, 
-                observed_emotions, 
+                observed_emotions=None, 
                 alpha=0.09, 
                 batch_size=32, 
                 epsilon=1e-08, 
@@ -44,13 +47,13 @@ class EmotionClassifier:
         self.learning_rate_init = learning_rate_init
         self.max_iter = max_iter
 
-        self.model = MLPClassifier(self.alpha, 
-                                    self.batch_size, 
-                                    self.epsilon, 
-                                    self.hidden_layer_sizes, 
-                                    self.learning_rate, 
-                                    self.learning_rate_init, 
-                                    self.max_iter)
+        self.model = MLPClassifier(alpha = self.alpha,
+                                   batch_size = self.batch_size,
+                                   epsilon = self.epsilon,
+                                   hidden_layer_sizes = self.hidden_layer_sizes,
+                                   learning_rate = self.learning_rate,
+                                   learning_rate_init = self.learning_rate_init,
+                                   max_iter = self.max_iter)
         
         self.x_test = []
         self.y_test = []
@@ -89,7 +92,7 @@ class EmotionClassifier:
         return train_test_split(np.array(features_list), np.asarray(emotions_list), test_size=test_size, random_state=9)
 
     #Train the model
-    def train_classifier(self, test_size):
+    def train(self, test_size):
         if not self.x_train:
             self.x_train, self.x_test, self.y_train, self.y_test = self.load_data(test_size=0.25)
         self.model.fit(self.x_train, self.y_train)
@@ -108,14 +111,7 @@ class EmotionClassifier:
         accuracy = accuracy_score(y_true = self.y_test, y_pred=y_pred)
         print("Accuracy on test data: {:.2f}%".format(accuracy*100))
 
-'''
-#Split the dataset into training data and test data
-x_train, x_test, y_train, y_test = load_data(test_size=0.25)
-print('Shape of the training data :', x_train.shape[0])
-print('Shape of the test data :', x_test.shape[0])
-print('Number of features extracted :,', x_train.shape[1])
-
-#Initialize the MLPClassifier model
-hidden_layer_sizes = [200 for i in range(4)]
-model = MLPClassifier(alpha=0.09, batch_size=32, epsilon=1e-08, hidden_layer_sizes=hidden_layer_sizes, learning_rate='adaptive', learning_rate_init=0.0001, max_iter=5000)
-'''
+    def splice_audio(self, file_name):
+        myaudio = AudioSegment.from_file(file_name, "wav")
+        chunk_length_ms = 1000 # pydub calculates in millisec
+        return make_chunks(myaudio, chunk_length_ms) #Make chunks of one sec
