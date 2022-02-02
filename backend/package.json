@@ -1,0 +1,31 @@
+{
+  "name": "dapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index",
+    "test": "npm test",
+    "start": "node index",
+    "lint": "eslint --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^15.0.0",
+    "ethereumjs-testrpc": "^6.0.3",
+    "express": "^4.17.2",
+    "ipfs-api": "^26.1.2",
+    "mongoose": "^6.1.10",
+    "multer": "^1.4.4",
+    "solc": "^0.8.11",
+    "web3": "^1.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.8.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "nodemon": "^2.0.15"
+  }
+}
