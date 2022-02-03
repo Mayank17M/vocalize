@@ -12,3 +12,5 @@ npm install
 expo start
 
 ```
+
+[Dataset](https://www.kaggle.com/uwrfkaggler/ravdess-emotional-speech-audio)
