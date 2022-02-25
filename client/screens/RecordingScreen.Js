@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, Button } from 'react-native';
-import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, Button, Text } from 'react-native';
+import { useState, useRef, useEffect } from 'react';
+import { View, StyleSheet,} from 'react-native';
 import { Audio } from 'expo-av';
 
 let recording = new Audio.Recording();

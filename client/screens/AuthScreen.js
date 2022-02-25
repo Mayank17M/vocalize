@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Text, Alert } from "react-native";
 
 import { useWeb3React } from "@web3-react/core";
-import { injected } from "../components/wallet/connectors";
+import { injected } from "../components/wallet/connector";
 
 const AuthScreen = ({ navigation }) => {
   const { active, account, library, connector, activate, deactivate } = useWeb3React();
