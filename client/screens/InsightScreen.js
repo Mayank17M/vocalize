@@ -1,21 +1,8 @@
 import React from 'react';
 
-import {
-  Chart,
-  Line,
-  Area,
-  HorizontalAxis,
-  VerticalAxis,
-} from 'react-native-responsive-linechart';
+import {Chart, Line, Area, HorizontalAxis, VerticalAxis} from 'react-native-responsive-linechart';
 
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart,
-} from 'react-native-chart-kit';
+import {LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart} from 'react-native-chart-kit';
 
 import { StyleSheet, Text, View } from 'react-native';
 import { Dimensions } from 'react-native';
