@@ -18,8 +18,8 @@ const RecordingScreen = ({ navigation, route }) => {
   }, []);
   
   const GetPermission = async () => {
-    const getAudioPerm = await Audio.requestPermissionsAsync();
-    await Audio.setAudioModeAsync({
+    const getAudioPerm = await Audio.requestPermissionsAsync(); //Asks the user to grant permissions for audio recording
+    await Audio.setAudioModeAsync({ //customize the audio experience on iOS and Android
       allowsRecordingIOS: true,
       playsInSilentModeIOS: true,
     });
@@ -29,8 +29,8 @@ const RecordingScreen = ({ navigation, route }) => {
   const startRecording = async () => {
     if (AudioPerm === true) {
       try {
-        await recording.prepareToRecordAsync(
-          Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+        await recording.prepareToRecordAsync( //customize the recording
+          Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY //preset option
         );
         await recording.startAsync();
         SetisRecording(true);
@@ -62,7 +62,7 @@ const RecordingScreen = ({ navigation, route }) => {
         true
       );
 
-      const response = await Player.current.getStatusAsync();
+      const response = await Player.current.getStatusAsync(); //Gets a status of background fetch
       if (response.isLoaded) {
         if (response.isPlaying === false) {
           Player.current.playAsync();
