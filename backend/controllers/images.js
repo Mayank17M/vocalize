@@ -5,17 +5,17 @@ const IpfsAPI = require('ipfs-api');
 const ipfs = new IpfsAPI({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 // https://gateway.ipfs.io/ipfs/:hash
 const path = require('path');
-const multer = require('multer');
+const multer = require('multer'); //node.js middleware, primarily used for uploading files
 const fs = require('fs');
 const Web3 = require('web3');
 
-const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545')); //set provider for all later instances to use
 const code = fs.readFileSync('./contracts/StoreHash.sol').toString();
 const solc = require('solc');
 
 const compiledCode = solc.compile(code);
 const abi = JSON.parse(compiledCode.contracts[':SaveAddress'].interface);
-const SavingContract = new web3.eth.Contract(abi, '0xb1caf625d9d29421dfd8dae4a7a9083b4175f80a');
+const SavingContract = new web3.eth.Contract(abi, '0x02884925D4583Ec138cc2368F52E9A9Ba1C834CC');
 const Image = require('../models/images');
 
 const MAX_SIZE = 52428800;
@@ -34,12 +34,12 @@ const storage = multer.diskStorage({
 exports.upload = multer({ storage, limits: { fieldSize: 25 * 1024 * 1024 } });
 
 exports.test = (req, res) => {
-    res.send(' Up and running');
+    res.send('Up and running');
 };
 
 exports.accounts = async (req, res) => {
     try {
-        const accounts = await web3.eth.getAccounts();
+        const accounts = await web3.eth.getAccounts(); // Returns a list of accounts the node controls
         res.send(accounts);
     } catch (err) {
         res.status(500).send(err.message);
@@ -48,7 +48,7 @@ exports.accounts = async (req, res) => {
 exports.transaction = async (req, res) => {
     try {
         // bring in user's metamask account address
-        const resp = await web3.eth.getTransactionReceipt('0x1cc752c0683b5f9b85c1ef60ba207503cee7c2444114d60502d34cb2d0c320e3');
+        const resp = await web3.eth.getTransactionReceipt('0x02884925D4583Ec138cc2368F52E9A9Ba1C834CC');
         res.send(resp);
     } catch (err) {
         res.status(500).send(err.message);
@@ -58,7 +58,7 @@ exports.transaction = async (req, res) => {
 exports.getData = async (req, res) => {
     if (!req.params.name) {
         return res.status(422).json({
-            error: 'name needs to be provided.',
+            error: 'Name needs to be provided.',
         });
     }
     const accounts = await web3.eth.getAccounts();

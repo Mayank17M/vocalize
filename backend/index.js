@@ -3,7 +3,7 @@ require('dotenv').config({ silent: true });
 const express = require('express');
 
 const app = express();
-const cors = require('cors');
+const cors = require('cors'); // HTTP-header based mechanism
 const mongoose = require('mongoose');
 
 const port = process.env.PORT || 5000;
