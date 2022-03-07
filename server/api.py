@@ -54,15 +54,15 @@ class Users(Resource):
 class Audio(Resource):
     pass
 
-api.add_resource(Users,'/users')
+api.add_resource(Users,'/users') # Adds a resource to the api
 api.add_resource(Audio,'/audio')
 
 if __name__ == "__main__":
     app.run(debug=True)
 
-ACCESS_KEY = "ist_Dhztjg5pZmQeJuFgID3dinHYM7PqX2v7"
-BUCKET_KEY = "RVCXRFDKET8E"
-BUCKET_NAME = "Emotion recognition"
+ACCESS_KEY = "ist_JJvvBP8oyjgwCWQzMzQUpSEkUzL_YdBj"
+BUCKET_KEY = "MBUPRFEQNGPS"
+BUCKET_NAME = "vocalize"
 
 # create a Streamer instance
 streamer = Streamer(bucket_name=BUCKET_NAME, bucket_key=BUCKET_KEY, access_key=ACCESS_KEY)
